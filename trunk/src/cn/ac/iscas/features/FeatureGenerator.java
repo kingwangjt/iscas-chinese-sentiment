@@ -1,5 +1,6 @@
 package cn.ac.iscas.features;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,8 +52,11 @@ public class FeatureGenerator {
 			String content = fileContent[i];
 			List<String> tokenList = getTokenList(content);
 			for(int j = 0; j < tokenList.size(); j++)
-			{	
-				if(tempMap.containsKey(tokenList.get(j)))
+			{
+				String s = tokenList.get(j).trim().toLowerCase();
+				if(s.compareTo("") == 0)
+					continue;
+				if(tempMap.containsKey(s))
 				{
 					List<Integer> idList = tempMap.get(tokenList.get(j));
 					idList.add(i);
@@ -83,7 +87,7 @@ public class FeatureGenerator {
 		}
 		
 		idf = new InvertedDocumentFrequencyFeature(termList.size());
-		tf = new TermFrequenceFeature(fileNum+1, termList.size());
+		tf = new TermFrequenceFeature(fileNum, termList.size());
 		
 		for(int i = 0; i < termList.size(); i++)
 		{
@@ -93,21 +97,66 @@ public class FeatureGenerator {
 			idf.idfs[i] = (double)fileNum/idList.size();
 			int flag = idList.get(0);
 			int count = 0;
+			List<Point> tfs = null;
+			
+			if(tf.termfrequenceMatrix.containsKey(flag))
+			{
+				tfs = tf.termfrequenceMatrix.get(flag);
+			}
+			else
+			{
+				tfs = new ArrayList<Point>();
+				tf.termfrequenceMatrix.put(flag, tfs);
+			}
+			
 			for(int j = 0; j < idList.size(); j++)
 			{
 				if(flag != idList.get(j))
 				{
-					tf.termfrequenceMatrix[flag][i] = count;
-					count = 0;
+					Point temp = new Point(i, count);
+					tfs.add(temp);
+					count = 1;
+					
+					flag = idList.get(j);
+					
+					if(tf.termfrequenceMatrix.containsKey(flag))
+					{
+						tfs = tf.termfrequenceMatrix.get(flag);
+					}
+					else
+					{
+						tfs = new ArrayList<Point>();
+						tf.termfrequenceMatrix.put(flag, tfs);
+					}
 				}
 				else
 				{
 					count++;
 				}
 			}
+			tfs.add(new Point(i, count));
 		}
 		
 		System.out.println("end");
+		
+		for(int i = 1; i <= fileNum; i++)
+		{
+			List<Point> tfs = tf.termfrequenceMatrix.get(i);
+			System.out.println("文档" + i + "包括下列词：");
+			if(tfs == null)
+			{
+				System.out.print("不含任何词");
+			}
+			else
+			{
+				for(int j = 0; j < tfs.size(); j++)
+				{
+					Point p = tfs.get(j);
+					System.out.print(termList.get(p.x) + "  " + p.y + "  ");
+				}
+			}
+			System.out.println();
+		}
 	}
 	
 	public List<String> getTokenList(String s)
