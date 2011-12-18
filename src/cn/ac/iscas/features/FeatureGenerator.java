@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.lucene.analysis.Token;
+import org.apache.lucene.analysis.TokenStream;
+
 import cn.ac.iscas.io.SmartFileViewer;
 import cn.ac.iscas.segment.ChineseSegment;
 
@@ -46,7 +49,7 @@ public class FeatureGenerator {
 		for(int i = 1; i <= fileNum; i++)
 		{
 			String content = fileContent[i];
-			List<String> tokenList = cst.testGetSegmentResult(content);
+			List<String> tokenList = getTokenList(content);
 			for(int j = 0; j < tokenList.size(); j++)
 			{	
 				if(tempMap.containsKey(tokenList.get(j)))
@@ -109,6 +112,19 @@ public class FeatureGenerator {
 	
 	public List<String> getTokenList(String s)
 	{
-		
+		List<String> tokenList = new ArrayList<String>();
+		TokenStream ts = cs.getSegmentResult(s);
+		Token nt = new Token();
+		try{
+		    nt = ts.next(nt);
+		    while (nt != null) {
+		      tokenList.add(nt.term());
+		      nt = ts.next(nt);
+		    }
+		    ts.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return tokenList;
 	}
 }
