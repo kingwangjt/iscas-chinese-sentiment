@@ -17,6 +17,7 @@ import java.util.List;
 public class SmartFileViewer {
 	
 	public static final String path = "C:\\Users\\peterstone\\Desktop\\dataset\\dataset";
+	//public static final String path = "C:\\Users\\peterstone\\Desktop\\trainset";
 	public static List<String> fileList = new ArrayList<String>();
 	public static String[] fileContent;
 	public static String[] fileLabel;
