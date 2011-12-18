@@ -1,13 +1,13 @@
 package cn.ac.iscas.entrance;
 
+import cn.ac.iscas.features.FeatureGenerator;
+
 /**
  * @author Simon
  *
  */
 public class HelloWorld {
 	public static void main(String[] args){
-		System.out.println("Hello world, First submission is mine, hiahia~");
-		System.out.println("Hello world, First submission is mine, hiahia~");
-		System.out.println("Hello world, First submission is mine, hiahia~");
+		FeatureGenerator fg = new FeatureGenerator();
 	}
 }
