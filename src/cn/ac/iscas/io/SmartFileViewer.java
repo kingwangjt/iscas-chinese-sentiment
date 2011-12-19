@@ -10,31 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* 读取目录及子目录下指定文件名的路径 并放到一个数组里面返回遍历
-* @author peterstone
-*
-*/
+ * 读取目录及子目录下指定文件名的路径 并放到一个数组里面返回遍历
+ * 
+ * @author peterstone
+ * 
+ */
 public class SmartFileViewer {
-	
-	public static final String path = "C:\\Users\\peterstone\\Desktop\\dataset\\dataset";
-	//public static final String path = "C:\\Users\\peterstone\\Desktop\\trainset";
+
+	public static final String path = "D:\\dataset";
+	// public static final String path =
+	// "C:\\Users\\peterstone\\Desktop\\trainset";
 	public static List<String> fileList = new ArrayList<String>();
 	public static String[] fileContent;
 	public static String[] fileLabel;
 	public static int MaxFileNum = 116436;
-	
-	public static void viewFiles() 
-	{
+
+	public static void viewFiles() {
 		fileContent = new String[MaxFileNum + 1];
 		fileLabel = new String[MaxFileNum + 1];
-		List arrayList = SmartFileViewer.getListFiles(path,"txt",true);
-		
-		if(arrayList.isEmpty())
-		{
+		List arrayList = SmartFileViewer.getListFiles(path, "txt", true);
+
+		if (arrayList.isEmpty()) {
 			System.out.println("没有符号要求的文件");
-		}
-		else
-		{
+		} else {
 			String message = "";
 			message += "符号要求的文件数：" + arrayList.size() + "\r\n";
 			System.out.println(message);
@@ -42,17 +40,20 @@ public class SmartFileViewer {
 	}
 
 	/**
-	* 
-	* @param path 文件路径
-	* @param suffix 后缀名
-	* @param isdepth 是否遍历子目录
-	* @return
-	*/
-	public static List getListFiles(String path, String suffix, boolean isdepth) 
-	{
-	   File file = new File(path);
-	   return SmartFileViewer.listFile(file ,suffix, isdepth);
+	 * 
+	 * @param path
+	 *            文件路径
+	 * @param suffix
+	 *            后缀名
+	 * @param isdepth
+	 *            是否遍历子目录
+	 * @return
+	 */
+	public static List getListFiles(String path, String suffix, boolean isdepth) {
+		File file = new File(path);
+		return SmartFileViewer.listFile(file, suffix, isdepth);
 	}
+
 
 	public static List listFile(File f, String suffix, boolean isdepth) 
 	{
@@ -109,20 +110,19 @@ public class SmartFileViewer {
 	   }
 	  
 	   return fileList;
+
 	}
-	
-	public static String readFile(String filename)
-	{
+
+	public static String readFile(String filename) {
 		String line = "";
 		try {
 			BufferedReader bfr = new BufferedReader(new FileReader(filename));
 			String templine = "";
-			while((templine = bfr.readLine())!= null)
-			{
+			while ((templine = bfr.readLine()) != null) {
 				line += templine;
 			}
 			bfr.close();
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

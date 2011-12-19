@@ -25,8 +25,13 @@ public class FeatureGenerator {
 	public Map<String, Integer> dictionaryIndex;
 	public String[] fileContent;
 	public String[] fileLabel;
-	public int fileNum;
-	public static final String path = "";
+	public static int fileNum;
+
+
+	public static String path = "";
+	
+
+
 	public Map<String, List<Integer>> tempMap;
 	public ChineseSegment cs;
 	public InvertedDocumentFrequencyFeature idf;
@@ -42,6 +47,10 @@ public class FeatureGenerator {
 		getFeatures();
 	}
 	
+	public static String getPath() {
+		return path;
+	}
+
 	public void readFiles()
 	{
 		SmartFileViewer sfv = new SmartFileViewer();
@@ -221,6 +230,18 @@ public class FeatureGenerator {
 			e.printStackTrace();
 		}
 		return tokenList;
+	}
+	
+	public static void setPath(String path) {
+		FeatureGenerator.path = path;
+	}
+	
+	public static int getFileNum() {
+		return fileNum;
+	}
+
+	public static void setFileNum(int fileNum) {
+		FeatureGenerator.fileNum = fileNum;
 	}
 	
 	
