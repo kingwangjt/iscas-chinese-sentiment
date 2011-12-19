@@ -1,6 +1,12 @@
 package cn.ac.iscas.features;
 
 import java.awt.Point;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -76,7 +82,9 @@ public class FeatureGenerator {
 		{
 			String term = (String)it.next();
 			term = term.trim().toLowerCase();
-			
+			List<Integer> l = tempMap.get(term);
+			if(l.size() <= 1000)
+				continue;
 			int k = 0;
 			for(k = 0; k < termList.size(); k++)
 			{
@@ -137,26 +145,64 @@ public class FeatureGenerator {
 			tfs.add(new Point(i, count));
 		}
 		
-		System.out.println("end");
-		
-		for(int i = 1; i <= fileNum; i++)
-		{
-			List<Point> tfs = tf.termfrequenceMatrix.get(i);
-			System.out.println("文档" + i + "包括下列词：");
-			if(tfs == null)
+		System.out.println("Generation ends.");
+		int num = this.termList.size();
+		try{
+			BufferedWriter bfw = new BufferedWriter(new FileWriter(".//tfs.txt"));
+			
+			for(int i = 1; i <= fileNum; i++)
 			{
-				System.out.print("不含任何词");
-			}
-			else
-			{
-				for(int j = 0; j < tfs.size(); j++)
+				int k = 0;
+				String line = "";
+				List<Point> tfs = tf.termfrequenceMatrix.get(i);
+				line += this.fileLabel[i];
+				System.out.println("文档" + i + "包括下列词：");
+				if(tfs == null)
 				{
-					Point p = tfs.get(j);
-					System.out.print(termList.get(p.x) + "  " + p.y + "  ");
+					System.out.print("不含任何词");
+					for(int q = 0; q < termList.size(); q++)
+						line += "\t" + 0;
 				}
+				else
+				{
+					for(int j = 0; j < tfs.size(); j++)
+					{
+						Point p = tfs.get(j);
+						System.out.print(termList.get(p.x) + "  " + p.y + "  ");
+						while(k < p.x)
+						{
+							line += "\t" + 0;
+							k++;
+						}
+						k++;
+						line += "\t" + p.y;
+					}
+					
+					while(k < this.termList.size())
+					{
+						line += "\t" + 0;
+						k++;
+					}
+				}
+				line += "\n";
+				bfw.write(line);
+				System.out.println();
 			}
-			System.out.println();
-		}
+			bfw.flush();
+			bfw.close();
+			
+			BufferedWriter bfw2 = new BufferedWriter(new FileWriter(".//term.txt"));
+			for(int i = 0; i < termList.size(); i++)
+			{
+				String line = "";
+				line += i + "\t" + termList.get(i) + "\n";
+				bfw2.write(line);
+			}
+			bfw2.flush();
+			bfw2.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}			
 	}
 	
 	public List<String> getTokenList(String s)
@@ -176,4 +222,35 @@ public class FeatureGenerator {
 		}
 		return tokenList;
 	}
+	
+	
+	 public void writeFeatures()
+	 {
+	        try {
+	            FileOutputStream fos = new FileOutputStream(".\\tf");
+	            ObjectOutputStream oos = new ObjectOutputStream(fos);
+	            
+	            oos.writeObject(tf);
+	            oos.flush();
+	            oos.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	 }
+	 
+	 public TermFrequenceFeature readFeatures()
+	 {
+		 TermFrequenceFeature t = null;
+		 try {
+	            FileInputStream fis = new FileInputStream(".\\tf");
+	            ObjectInputStream ois = new ObjectInputStream(fis);
+	            
+	            t = (TermFrequenceFeature)ois.readObject();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+		 return t;
+	 }
 }

@@ -89,15 +89,15 @@ public class SmartFileViewer {
 	      fileContent[fileid] = content;
 	      if(temp[1].compareTo("很好.txt") == 0 || temp[1].compareTo("好.txt") == 0)
 	      {
-	    	  fileLabel[fileid] = fileid + " 1";
+	    	  fileLabel[fileid] = fileid + "\t1";
 	      }
 	      else if(temp[1].compareTo("差.txt") == 0 || temp[1].compareTo("很差.txt") == 0)
 	      {
-	    	  fileLabel[fileid] = fileid + " -1";
+	    	  fileLabel[fileid] = fileid + "\t-1";
 	      }
 	      else
 	      {
-	    	  fileLabel[fileid] = fileid + " 0";
+	    	  fileLabel[fileid] = fileid + "\t0";
 	      }
 	     }
 	    }
