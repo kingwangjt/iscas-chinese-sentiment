@@ -26,6 +26,7 @@ public class FeatureGenerator {
 	public String[] fileContent;
 	public String[] fileLabel;
 	public static int fileNum;
+	public static final int DFThreshold = 1;
 
 
 	public static String path = "";
@@ -53,7 +54,7 @@ public class FeatureGenerator {
 
 	public void readFiles()
 	{
-		SmartFileViewer sfv = new SmartFileViewer();
+		SmartFileViewer sfv = new SmartFileViewer(path);
 		sfv.viewFiles();
 		fileContent = sfv.fileContent;
 		fileLabel = sfv.fileLabel;
@@ -65,6 +66,7 @@ public class FeatureGenerator {
 		for(int i = 1; i <= fileNum; i++)
 		{
 			String content = fileContent[i];
+		//	System.out.println(content + "!");
 			List<String> tokenList = getTokenList(content);
 			for(int j = 0; j < tokenList.size(); j++)
 			{
@@ -92,8 +94,10 @@ public class FeatureGenerator {
 			String term = (String)it.next();
 			term = term.trim().toLowerCase();
 			List<Integer> l = tempMap.get(term);
-			if(l.size() <= 1000)
+			////
+			if(l.size() <= DFThreshold)
 				continue;
+			////
 			int k = 0;
 			for(k = 0; k < termList.size(); k++)
 			{

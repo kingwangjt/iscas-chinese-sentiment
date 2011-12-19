@@ -10,7 +10,7 @@ public class NNTestEntrance {
 	//
 	
 	public static void main(String[] args){
-		Network network = new Network(8, 17, 1);
+		Network network = new Network(705, 1410, 1);
 	//	network.setLearningRate(learnRate);
 		network.setClassNumber(2);
 	//	network.printNetwork();
@@ -19,13 +19,12 @@ public class NNTestEntrance {
 //		double[] output = {1.0};
 //		network.backpropagation(output);
 //		network.printNetwork();
-		
-		Data trainData = new Data("data\\cod-rna.txt");
+		Data trainData = new Data("test\\termfrequence.txt");
 
 		Normalizer normalizer = new Normalizer();
 	//	normalizer.normalizeByMinMax(trainData.dataset, true);
 	//	normalizer.normalizeByZScore(trainData.dataset, true);
-		normalizer.normalizeByLogistic(trainData.dataset, true);
+	//	normalizer.normalizeByLogistic(trainData.dataset, true);
 
 		System.out.println(trainData.calMisRecord(network));
 		Random seed = new Random();
@@ -53,10 +52,10 @@ public class NNTestEntrance {
 		}
 	//	network.printNetwork();
 		System.out.println(trainData.calMisRecord(network));
-//		Data testData = new Data("data\\glass.t");
+		Data testData = new Data("test\\termfrequence-test.txt");
 //		normalizer.normalizeByMinMax(testData.dataset, false);
 //		normalizer.normalizeByZScore(testData.dataset, false);
 //	//	normalizer.normalizeByLogistic(testData.dataset, false);
-//		System.out.println(testData.calMisRecord(network));
+		System.out.println(testData.calMisRecord(network));
 	}
 }
