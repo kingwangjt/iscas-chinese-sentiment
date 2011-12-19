@@ -38,8 +38,13 @@ public class FeatureGenerator {
 	public InvertedDocumentFrequencyFeature idf;
 	public TermFrequenceFeature tf;
 	
-	public FeatureGenerator()
+	public FeatureGenerator(){
+		
+	}
+	
+	public FeatureGenerator(String path)
 	{
+		this.path = path;
 		termList = new ArrayList<String>();
 		dictionaryIndex = new HashMap<String, Integer>();
 		cs = new ChineseSegment();
@@ -252,9 +257,8 @@ public class FeatureGenerator {
 	 public void writeFeatures()
 	 {
 	        try {
-	            FileOutputStream fos = new FileOutputStream(".\\tf");
-	            ObjectOutputStream oos = new ObjectOutputStream(fos);
-	            
+	            FileOutputStream fos = new FileOutputStream("tf");
+	            ObjectOutputStream oos = new ObjectOutputStream(fos);            
 	            oos.writeObject(tf);
 	            oos.flush();
 	            oos.close();
@@ -268,7 +272,7 @@ public class FeatureGenerator {
 	 {
 		 TermFrequenceFeature t = null;
 		 try {
-	            FileInputStream fis = new FileInputStream(".\\tf");
+	            FileInputStream fis = new FileInputStream("tf");
 	            ObjectInputStream ois = new ObjectInputStream(fis);
 	            
 	            t = (TermFrequenceFeature)ois.readObject();
