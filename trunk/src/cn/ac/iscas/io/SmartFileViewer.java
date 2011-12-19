@@ -17,24 +17,33 @@ import java.util.List;
  */
 public class SmartFileViewer {
 
-	public static final String path = "D:\\dataset";
+	public static String path = "";
 	// public static final String path =
 	// "C:\\Users\\peterstone\\Desktop\\trainset";
 	public static List<String> fileList = new ArrayList<String>();
 	public static String[] fileContent;
 	public static String[] fileLabel;
-	public static int MaxFileNum = 116436;
+	public static int MaxFileNum = 0;
+	static int count = 0;
+
+	
+	public SmartFileViewer(String path){
+		this.path = path;
+	}
 
 	public static void viewFiles() {
+		File dir = new File(path);
+		File[] t = dir.listFiles();
+		MaxFileNum = t.length;
 		fileContent = new String[MaxFileNum + 1];
 		fileLabel = new String[MaxFileNum + 1];
 		List arrayList = SmartFileViewer.getListFiles(path, "txt", true);
 
 		if (arrayList.isEmpty()) {
-			System.out.println("没有符号要求的文件");
+			System.out.println("没有符合要求的文件");
 		} else {
 			String message = "";
-			message += "符号要求的文件数：" + arrayList.size() + "\r\n";
+			message += "符合要求的文件数：" + arrayList.size() + "\r\n";
 			System.out.println(message);
 		}
 	}
@@ -54,62 +63,52 @@ public class SmartFileViewer {
 		return SmartFileViewer.listFile(file, suffix, isdepth);
 	}
 
+	public static List listFile(File f, String suffix, boolean isdepth) {
+		// 是目录，同时需要遍历子目录
+		if (f.isDirectory() && isdepth == true) {
+			File[] t = f.listFiles();
+			for (int i = 0; i < t.length; i++) {
+				listFile(t[i], suffix, isdepth);
+			}
+		} else {
+			String filePath = f.getAbsolutePath();
 
-	public static List listFile(File f, String suffix, boolean isdepth) 
-	{
-	   //是目录，同时需要遍历子目录
-	   if (f.isDirectory() && isdepth == true)
-	   {
-	    File[] t = f.listFiles();
-	    for (int i = 0; i < t.length; i++)
-	    {
-	     listFile(t[i], suffix, isdepth);
-	    }
-	   }
-	   else 
-	   {
-	    String filePath = f.getAbsolutePath();
-	   
-	    if(suffix !=null)
-	    {
-	     int begIndex = filePath.lastIndexOf(".");//最后一个.(即后缀名前面的.)的索引
-	     String tempsuffix = "";
-	    
-	     if(begIndex != -1)//防止是文件但却没有后缀名结束的文件
-	     {
-	      tempsuffix = filePath.substring(begIndex + 1, filePath.length());
-	     }
-	    
-	     if(tempsuffix.equals(suffix))
-	     {
-	      fileList.add(filePath);
-	      String content = readFile(filePath);
-	      String filename = f.getName();
-	      String[] temp = filename.split("_");
-	      int fileid = Integer.valueOf(temp[0]);
-	      fileContent[fileid] = content;
-	      if(temp[1].compareTo("很好.txt") == 0 || temp[1].compareTo("好.txt") == 0)
-	      {
-	    	  fileLabel[fileid] = fileid + "\t1";
-	      }
-	      else if(temp[1].compareTo("差.txt") == 0 || temp[1].compareTo("很差.txt") == 0)
-	      {
-	    	  fileLabel[fileid] = fileid + "\t-1";
-	      }
-	      else
-	      {
-	    	  fileLabel[fileid] = fileid + "\t0";
-	      }
-	     }
-	    }
-	    else
-	    {
-	     //后缀名为null则为所有文件
-	     fileList.add(filePath);
-	    }
-	   }
-	  
-	   return fileList;
+			if (suffix != null) {
+				int begIndex = filePath.lastIndexOf(".");// 最后一个.(即后缀名前面的.)的索引
+				String tempsuffix = "";
+
+				if (begIndex != -1)// 防止是文件但却没有后缀名结束的文件
+				{
+					tempsuffix = filePath.substring(begIndex + 1, filePath
+							.length());
+				}
+
+				if (tempsuffix.equals(suffix)) {
+					fileList.add(filePath);
+					String content = readFile(filePath);
+					String filename = f.getName();
+					count++;
+					System.out.println("add " + filename + " (" + count +")..");
+					String[] temp = filename.split("_");
+					int fileid = Integer.valueOf(temp[0]);
+					fileContent[fileid] = content;
+					if (temp[1].compareTo("很好.txt") == 0
+							|| temp[1].compareTo("好.txt") == 0) {
+						fileLabel[fileid] = fileid + "\t1";
+					} else if (temp[1].compareTo("差.txt") == 0
+							|| temp[1].compareTo("很差.txt") == 0) {
+						fileLabel[fileid] = fileid + "\t-1";
+					} else {
+						fileLabel[fileid] = fileid + "\t0";
+					}
+				}
+			} else {
+				// 后缀名为null则为所有文件
+				fileList.add(filePath);
+			}
+		}
+
+		return fileList;
 
 	}
 
