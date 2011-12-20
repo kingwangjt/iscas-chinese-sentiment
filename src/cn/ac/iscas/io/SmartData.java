@@ -16,8 +16,10 @@ public class SmartData {
 		System.out.println("Data Process Begin..");
 		SmartFile sf = new SmartFile(path, true);
 		String line = sf.readLine();
-		while (line != null){	
-			doclist.add(getDocFromString(line));
+		while (line != null){
+			Doc doc = getDocFromString(line);
+			if (doc != null)
+				doclist.add(doc);
 			line = sf.readLine();
 		}
 		sf.close();
@@ -31,6 +33,8 @@ public class SmartData {
 		try{
 			doc.ID = Integer.parseInt(fields[0]);
 			doc.sentiment = Integer.parseInt(fields[1]);
+			if (doc.sentiment == 0) return null;
+			///////////
 		} catch (Exception e){
 			System.out.println("id, sentiment read error");
 			e.printStackTrace();
