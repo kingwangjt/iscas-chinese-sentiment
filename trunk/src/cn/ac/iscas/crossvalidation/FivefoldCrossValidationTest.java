@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class FivefoldCrossValidationTest {
 	public static void main(String[] args){
-		/*ArrayList<Integer> num = new ArrayList<Integer>();
-		for(int i=0; i<100; i++){
+		ArrayList<Integer> num = new ArrayList<Integer>(3);
+		/*for(int i=0; i<100; i++){
 			num.add(i+1);
 		}
 		for(int i=0; i<100; i++){
@@ -21,13 +21,13 @@ public class FivefoldCrossValidationTest {
 			System.out.println(num.get(i));
 		}*/
 		FivefoldCrossValidation ffcv = new FivefoldCrossValidation();
-		ffcv.getDataSet("D:\\dataset.txt");
+		ffcv.getDataSet("D:\\svm_tf.txt");
 		ffcv.dataSetShuffle();
-		/*for(int i=0; i<ffcv.dataset.size(); i++){
+/*		for(int i=0; i<ffcv.size; i++){
 			System.out.println(ffcv.num.get(i));
 		}*/
-//		System.out.println(ffcv.dataset.size());
-		ffcv.generateDataSets("D:\\");
+//		System.out.println(ffcv.size);
+		ffcv.generateDataSets("D:\\svm_tf.txt","F:\\3\\");
 		
 	}
 
