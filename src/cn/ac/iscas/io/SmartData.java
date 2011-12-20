@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class SmartData {
 	String path;
-	ArrayList<Doc> doclist = new ArrayList<Doc>();
+	public ArrayList<Doc> doclist = new ArrayList<Doc>();
 	
 	public SmartData(String path){
 		this.path = path;
