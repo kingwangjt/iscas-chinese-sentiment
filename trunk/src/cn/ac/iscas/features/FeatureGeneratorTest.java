@@ -1,5 +1,6 @@
 package cn.ac.iscas.features;
 
+import java.awt.Point;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -7,12 +8,6 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 public class FeatureGeneratorTest extends TestCase {
-
-//	public void testGetFeatures() {
-//		FeatureGenerator fg = new FeatureGenerator("D:\\dianping\\dataset2");
-//		fg.writeFeatures();
-//	}
-	
 	public void testReadFeatures() {
 		FeatureGenerator fg = new FeatureGenerator();
 		TermFrequenceFeature tf = fg.readFeatures();
@@ -22,8 +17,17 @@ public class FeatureGeneratorTest extends TestCase {
 		while(it.hasNext())
 		{
 			Integer term = (Integer)it.next();
+			List<Point> tfs = tf.termfrequenceMatrix.get(term);
 			System.out.println(term);
-		}
-		
+			for (int i = 0; i < tfs.size(); i++){
+				System.out.print(tfs.get(i).x + ":" + tfs.get(i).y + " ");
+			}
+			System.out.println();
+		}	
+	}
+	
+	public void testGetFeatures() {
+		FeatureGenerator fg = new FeatureGenerator("D:\\dianping\\dataset2");
+		fg.writeFeatures();
 	}
 }
