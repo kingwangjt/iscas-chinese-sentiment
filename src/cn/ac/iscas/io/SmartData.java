@@ -13,6 +13,7 @@ public class SmartData {
 	}
 	
 	void getData(){
+		System.out.println("Data Process Begin..");
 		SmartFile sf = new SmartFile(path, true);
 		String line = sf.readLine();
 		while (line != null){	
@@ -20,6 +21,8 @@ public class SmartData {
 			line = sf.readLine();
 		}
 		sf.close();
+		System.out.println(doclist.size() + " files");
+		System.out.println("Data Process End..");
 	}
 	
 	Doc getDocFromString(String line){

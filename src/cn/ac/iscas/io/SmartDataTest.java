@@ -6,7 +6,7 @@ public class SmartDataTest extends TestCase {
 
 	public void testGetData() {
 		SmartData smartData = new SmartData("data\\svm_tf.txt");
-		smartData.printData();
+//		smartData.printData();
 	}
 
 	public void testPrintData() {
