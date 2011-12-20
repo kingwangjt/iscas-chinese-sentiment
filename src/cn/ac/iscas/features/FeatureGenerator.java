@@ -166,9 +166,35 @@ public class FeatureGenerator {
 		System.out.println("Generation ends.");
 		int num = this.termList.size();
 		try{
-			BufferedWriter bfw = new BufferedWriter(new FileWriter(".//tfs.txt"));
+			BufferedWriter bfw = new BufferedWriter(new FileWriter(".//svm_tf.txt"));
 			
 			for(int i = 1; i <= fileNum; i++)
+			{
+				String line = "";
+				List<Point> tfs = tf.termfrequenceMatrix.get(i);
+				line += this.fileLabel[i];
+				System.out.println("文档" + i + "包括下列词：");
+				if(tfs == null)
+				{
+					System.out.print("不含任何词");
+				}
+				else
+				{
+					for(int j = 0; j < tfs.size(); j++)
+					{
+						Point p = tfs.get(j);
+						System.out.print(termList.get(p.x) + "  " + p.y + "  ");
+						line += "\t" + p.x + ":" + p.y;
+					}
+				}
+				line += "\n";
+				bfw.write(line);
+				System.out.println();
+			}
+			bfw.flush();
+			bfw.close();
+			
+			/*for(int i = 1; i <= fileNum; i++)
 			{
 				int k = 0;
 				String line = "";
@@ -207,9 +233,9 @@ public class FeatureGenerator {
 				System.out.println();
 			}
 			bfw.flush();
-			bfw.close();
+			bfw.close();*/
 			
-			BufferedWriter bfw2 = new BufferedWriter(new FileWriter(".//term.txt"));
+			BufferedWriter bfw2 = new BufferedWriter(new FileWriter(".//svm_term.txt"));
 			for(int i = 0; i < termList.size(); i++)
 			{
 				String line = "";
