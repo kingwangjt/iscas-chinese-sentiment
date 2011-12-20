@@ -22,10 +22,10 @@ public class NBModel {
 	
 	public void train(){
 		for (int i = 0; i < trainData.doclist.size(); i++){
-			if (i % 100 == 0){
-				System.out.print(i + " datas processed...");
-				System.out.println("term size: " + tfcount.size());
-			}
+//			if (i % 100 == 0){
+//				System.out.print(i + " datas processed...");
+//				System.out.println("term size: " + tfcount.size());
+//			}
 			Doc doc = trainData.doclist.get(i);
 			if (doc.sentiment > 0){
 				p++;
@@ -53,7 +53,9 @@ public class NBModel {
 		for (int i = 0; i < test.doclist.size(); i++){
 			Doc doc = test.doclist.get(i);
 			int sentiment = getSentiment(doc);
-			System.out.println(sentiment);
+			//System.out.println(sentiment);
+			if (sentiment == 0) continue;
+			////////////////////////////////
 			if (sentiment == doc.sentiment) right++;
 			else wrong++;
 		}

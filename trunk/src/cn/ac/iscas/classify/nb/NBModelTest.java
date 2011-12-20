@@ -1,6 +1,7 @@
 package cn.ac.iscas.classify.nb;
 
 import cn.ac.iscas.io.SmartData;
+import cn.ac.iscas.sentiment.featureselect.DFFilter;
 import junit.framework.TestCase;
 
 public class NBModelTest extends TestCase {
@@ -12,5 +13,4 @@ public class NBModelTest extends TestCase {
 //		nbm.printModel();
 		nbm.test(trainData);
 	}
-
 }
