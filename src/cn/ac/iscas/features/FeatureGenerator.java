@@ -26,7 +26,7 @@ public class FeatureGenerator {
 	public String[] fileContent;
 	public String[] fileLabel;
 	public static int fileNum;
-	public static final int DFThreshold = 1;
+	public static final int DFThreshold = 10;
 
 
 	public static String path = "";
