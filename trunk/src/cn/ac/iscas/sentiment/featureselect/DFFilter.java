@@ -8,7 +8,7 @@ import cn.ac.iscas.io.SmartData;
 
 public class DFFilter {
 	public SmartData data;
-	public static int threshold = 100;
+	public static int threshold = 10;
 	public ArrayList<Point> dfcount = new ArrayList<Point>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
