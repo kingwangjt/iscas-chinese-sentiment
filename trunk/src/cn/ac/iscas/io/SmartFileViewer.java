@@ -99,7 +99,7 @@ public class SmartFileViewer {
 							|| temp[1].compareTo("很差.txt") == 0) {
 						fileLabel[fileid] = fileid + "\t-1";
 					} else {
-						fileLabel[fileid] = fileid + "\t0";
+						fileLabel[fileid] = fileid + "\t-1";
 					}
 				}
 			} else {

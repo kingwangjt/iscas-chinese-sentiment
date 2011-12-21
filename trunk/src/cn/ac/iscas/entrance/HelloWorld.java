@@ -8,6 +8,6 @@ import cn.ac.iscas.features.FeatureGenerator;
  */
 public class HelloWorld {
 	public static void main(String[] args){
-		FeatureGenerator fg = new FeatureGenerator();
+		FeatureGenerator fg = new FeatureGenerator("C:\\Users\\peterstone\\Desktop\\trainset");
 	}
 }
