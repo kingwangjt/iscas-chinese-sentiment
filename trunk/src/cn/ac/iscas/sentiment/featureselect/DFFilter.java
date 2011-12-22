@@ -2,13 +2,14 @@ package cn.ac.iscas.sentiment.featureselect;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import cn.ac.iscas.io.Doc;
 import cn.ac.iscas.io.SmartData;
 
 public class DFFilter {
 	public SmartData data;
-	public static int threshold = 10;
+	public static double threshold = 0.6;
 	public ArrayList<Point> dfcount = new ArrayList<Point>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
@@ -26,11 +27,18 @@ public class DFFilter {
 				addDF(tf.x, tf.y);
 			}	
 		}
+		sortByDF();
 		generateFilterIndexs();
 		System.out.println("Size: " + dfcount.size());
 		filter(this.data);
 		System.out.print("DF Filter End...");
 		System.out.println("Size: " + (dfcount.size() - filters.size()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void sortByDF()
+	{
+		Collections.sort(dfcount, new SortByDF());
 	}
 	
 	private void addDF(int id, int freq){
@@ -51,7 +59,7 @@ public class DFFilter {
 	void generateFilterIndexs(){
 		for (int i = 0; i < dfcount.size(); i++){
 			Point df = dfcount.get(i);
-			if ((!filters.contains(df.x)) && (df.y < threshold)){
+			if ((!filters.contains(df.x)) && (i > dfcount.size() * threshold)){
 				filters.add(dfcount.get(i).x);
 			}
 		}

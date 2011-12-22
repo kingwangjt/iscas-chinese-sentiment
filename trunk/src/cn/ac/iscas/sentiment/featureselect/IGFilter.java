@@ -2,13 +2,14 @@ package cn.ac.iscas.sentiment.featureselect;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import cn.ac.iscas.io.Doc;
 import cn.ac.iscas.io.SmartData;
 
 public class IGFilter {
 	public SmartData data;
-	public static double threshold = 0.3;
+	public static double threshold = 0.7;
 	public ArrayList<IGItem> igcount = new ArrayList<IGItem>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
@@ -36,11 +37,18 @@ public class IGFilter {
 		for (int i = 0; i < igcount.size(); i++){
 			igcount.get(i).setInformationGain(pcount, ncount);
 		}
+		sortByIG();
 		generateFilterIndexs();
 		System.out.println("Size: " + igcount.size());
 		filter(this.data);
 		System.out.print("Information Gain End...");
 		System.out.println("Size: " + (igcount.size() - filters.size()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void sortByIG()
+	{
+		Collections.sort(igcount, new SortByIG());
 	}
 	
 	private void addIGCount(int id, int sentiment){
@@ -66,7 +74,7 @@ public class IGFilter {
 	void generateFilterIndexs(){
 		for (int i = 0; i < igcount.size(); i++){
 			IGItem igItem = igcount.get(i);
-			if ((!filters.contains(igItem.ID)) && (igItem.ig < threshold)){
+			if ((!filters.contains(igItem.ID)) && (i > threshold * igcount.size())){
 				filters.add(igItem.ID);
 			}
 		}
