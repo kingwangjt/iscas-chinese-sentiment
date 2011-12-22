@@ -6,9 +6,16 @@ import java.util.ArrayList;
 public class SmartData {
 	String path;
 	public ArrayList<Doc> doclist = new ArrayList<Doc>();
+	private boolean isTrain = true;
 	
 	public SmartData(String path){
 		this.path = path;
+		getData();
+	}
+	
+	public SmartData(String path, boolean isTest){
+		this.path = path;
+		this.isTrain = false;
 		getData();
 	}
 	
@@ -33,7 +40,7 @@ public class SmartData {
 		try{
 			doc.ID = Integer.parseInt(fields[0]);
 			doc.sentiment = Integer.parseInt(fields[1]);
-			if (doc.sentiment == 0) return null;
+			if ((isTrain) && (doc.sentiment == 0)) return null;
 			///////////
 		} catch (Exception e){
 			System.out.println("id, sentiment read error");
