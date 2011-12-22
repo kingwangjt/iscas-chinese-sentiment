@@ -83,9 +83,9 @@ public class IGFilter {
 	public void filter(SmartData data){
 		for (int i = 0; i < data.doclist.size(); i++){
 			Doc doc = data.doclist.get(i);
-			if (i % 100 == 0){
-				System.out.println(i + " data processed..");
-			}
+//			if (i % 100 == 0){
+//				System.out.println(i + " data processed..");
+//			}
 			int j = 0;
 			while(j < doc.tfs.size()){
 				Point tf = doc.tfs.get(j);

@@ -9,15 +9,15 @@ import junit.framework.TestCase;
 public class NBModelTest extends TestCase {
 
 	public void testNBModel() {
-		SmartData trainData = new SmartData("data\\svm_tf.txt");
+		SmartData trainData = new SmartData("test\\5-fold Cross Validation.trainning.1.txt");
 //		DFFilter df = new DFFilter(trainData);
-		IGFilter ig = new IGFilter(trainData);
+//		IGFilter ig = new IGFilter(trainData);
 //		CHIFilter chi = new CHIFilter(trainData);
-		SmartData testData = new SmartData("data\\svm_tf.txt", true);
-		ig.filter(testData);
+		SmartData testData = new SmartData("test\\5-fold Cross Validation.testing.1.txt");
+//		ig.filter(testData);
 		NBModel nbm = new NBModel(trainData);
 		nbm.train();
 //		nbm.printModel();
-		nbm.test(trainData);
+		nbm.test(testData);
 	}
 }
