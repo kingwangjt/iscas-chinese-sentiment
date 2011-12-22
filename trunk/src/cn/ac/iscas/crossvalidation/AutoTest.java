@@ -11,24 +11,24 @@ import cn.ac.iscas.sentiment.featureselect.IGFilter;
 public class AutoTest {
 	public static String testDir = "test\\";
 	public static void main(String[] args){
-//		FivefoldCrossValidation ffcv = new FivefoldCrossValidation();
-//		ffcv.getDataSet("data\\svm_tf.txt");
-//		ffcv.dataSetShuffle();
-//		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 3);
-//		System.out.print("....");
-//		ffcv.dataSetShuffle();
-//		System.out.print("....");
-//		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 5);
-//		System.out.print("....");
-//		ffcv.dataSetShuffle();
-//		System.out.print("....");
-//		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 7);
-//		System.out.print("....");
+		FivefoldCrossValidation ffcv = new FivefoldCrossValidation();
+		ffcv.getDataSet("data\\svm_tf.txt");
+		ffcv.dataSetShuffle();
+		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 3);
+		System.out.print("....");
+		ffcv.dataSetShuffle();
+		System.out.print("....");
+		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 5);
+		System.out.print("....");
+		ffcv.dataSetShuffle();
+		System.out.print("....");
+		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 7);
+		System.out.print("....");
 //		ffcv.dataSetShuffle();
 //		System.out.print("....");
 //		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 10);
-//		System.out.print("....");
-//		System.out.println("File Generation Done!");
+		System.out.print("....");
+		System.out.println("File Generation Done!");
 		try{
 			File dir = new File(testDir);
 			File[] testFiles = dir.listFiles();
@@ -45,7 +45,7 @@ public class AutoTest {
 					System.out.println(testFiles[p].getName());
 					System.out.println(testFiles[i].getName());
 					SmartData trainData = new SmartData(testFiles[p].getAbsolutePath());
-					DFFilter df = new DFFilter(trainData);
+//					DFFilter df = new DFFilter(trainData);
 //					IGFilter ig = new IGFilter(trainData);
 //					CHIFilter chi = new CHIFilter(trainData);
 					SmartData testData = new SmartData(testFiles[i].getAbsolutePath(), true);

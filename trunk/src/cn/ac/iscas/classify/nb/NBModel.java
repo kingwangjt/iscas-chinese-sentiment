@@ -70,9 +70,9 @@ public class NBModel {
 				else wrong2++;				
 			}
 		}
-		System.out.println("rC : " + rightNonCommentCount);
-		System.out.println("aC : " + orlNonCommentCount);
-		System.out.println("gC : " + predictNonCommentCount);
+//		System.out.println("rC : " + rightNonCommentCount);
+//		System.out.println("aC : " + orlNonCommentCount);
+//		System.out.println("gC : " + predictNonCommentCount);
 		System.out.println("Accuracy: " + (double)right/(right+wrong));
 		System.out.println("Accuracy(Without Non-Comment): " + (double)right2/(right2+wrong2));
 		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/predictNonCommentCount);
@@ -81,20 +81,30 @@ public class NBModel {
 	
 	int getSentiment(Doc doc){
 		int sentiment = 0;
-		double pProbability = pPositive;
-		double nProbability = pNegtive;
+		double pProbability = Math.log(pPositive);
+		double nProbability = Math.log(pNegtive);
+	//	System.out.println(pProbability + ":" + nProbability);
 		boolean hasTerm = false;
+		System.out.println(doc.ID + " tfs size: " + doc.tfs.size());
 		for (int i = 0; i < doc.tfs.size(); i++){
+			
 			Point tf = doc.tfs.get(i);
 			int index = getIndex(tf.x);
 			if (index < 0) continue;
 			hasTerm = true;
-			pProbability *= Math.pow(tfcount.get(index).pProbability, tf.y);
-			nProbability *= Math.pow(tfcount.get(index).nProbability, tf.y);
+			pProbability += tfcount.get(index).pProbability * tf.y;
+			nProbability += tfcount.get(index).nProbability * tf.y;
+//			if (Math.abs(pProbability - 0) < 0.00001){
+//				System.out.println(">>>" + tfcount.get(index).pProbability + ":" +tf.y);
+//			}
 		}
-		if (!hasTerm) return 0;
+//		if (!hasTerm){
+//			System.out.println("No available term!");
+//			return 0;
+//		}
 		if (pProbability > nProbability) return 1;
 		if (nProbability > pProbability) return -1;
+//		System.out.println(pProbability + ":" + nProbability);
 		return sentiment;
 	}
 	
@@ -136,6 +146,7 @@ public class NBModel {
 	public void setProbability(){
 		for (int i = 0; i < tfcount.size(); i++){
 			tfcount.get(i).setProbability(pcount, ncount, tfcount.size());
+			System.out.println(i + " " + tfcount.get(i).pProbability + ":" + tfcount.get(i).nProbability);
 		}
 	}
 	
