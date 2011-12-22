@@ -11,9 +11,10 @@ public class NBModelTest extends TestCase {
 	public void testNBModel() {
 		SmartData trainData = new SmartData("data\\svm_tf.txt");
 //		DFFilter df = new DFFilter(trainData);
-//		IGFilter ig = new IGFilter(trainData);
+		IGFilter ig = new IGFilter(trainData);
 //		CHIFilter chi = new CHIFilter(trainData);
-		
+		SmartData testData = new SmartData("data\\svm_tf.txt", true);
+		ig.filter(testData);
 		NBModel nbm = new NBModel(trainData);
 		nbm.train();
 //		nbm.printModel();
