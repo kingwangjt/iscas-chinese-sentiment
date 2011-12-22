@@ -12,7 +12,7 @@ public class NBModelTest extends TestCase {
 		SmartData trainData = new SmartData("data\\svm_tf.txt");
 //		DFFilter df = new DFFilter(trainData);
 //		IGFilter ig = new IGFilter(trainData);
-		CHIFilter chi = new CHIFilter(trainData);
+//		CHIFilter chi = new CHIFilter(trainData);
 		
 		NBModel nbm = new NBModel(trainData);
 		nbm.train();
