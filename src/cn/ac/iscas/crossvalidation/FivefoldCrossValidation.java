@@ -49,12 +49,12 @@ public class FivefoldCrossValidation {
 		Collections.shuffle(num,seed);
 	}
 	
-	public void generateDataSets(String originalPath, String outputPath){
+	public void generateDataSets(String originalPath, String outputPath, int k_fold){
 		int begin = 0;
 		int last = 0;
 		mark = new int[size];
 		
-		//five iterations
+		//k iterations
 		int iteration = 1;
 		SmartFile sf_write_test = null;
 		SmartFile sf_write_train;
@@ -62,7 +62,7 @@ public class FivefoldCrossValidation {
 		String testingfilename = "5-fold Cross Validation.testing.";
 		String trainningfilename = "5-fold Cross Validation.trainning.";
 		int increment;
-		while(iteration <= 5){
+		while(iteration <= k_fold){
 			begin = last;
 			for(int i = 0; i < size; i++){
 				mark[i] = 0;                          //mark = 0 means training data
