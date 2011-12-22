@@ -27,7 +27,7 @@ public class FivefoldCrossValidationTest {
 			System.out.println(ffcv.num.get(i));
 		}*/
 //		System.out.println(ffcv.size);
-		ffcv.generateDataSets("D:\\svm_tf.txt","F:\\4\\",5);
+		ffcv.generateDataSets("D:\\svm_tf.txt","F:\\4\\",10);
 		
 	}
 
