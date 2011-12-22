@@ -81,7 +81,7 @@ public class CHIFilter {
 		}
 	}
 	
-	void filter(SmartData data){
+	public void filter(SmartData data){
 		for (int i = 0; i < data.doclist.size(); i++){
 			Doc doc = data.doclist.get(i);
 			if (i % 100 == 0){
