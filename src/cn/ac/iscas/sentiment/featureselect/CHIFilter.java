@@ -9,7 +9,7 @@ import cn.ac.iscas.io.SmartData;
 
 public class CHIFilter {
 	public SmartData data;
-	public static double threshold = 0.6;
+	public static double threshold = 0.1;
 	public ArrayList<CHIItem> chicount = new ArrayList<CHIItem>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
@@ -75,7 +75,7 @@ public class CHIFilter {
 	void generateFilterIndexs(){
 		for (int i = 0; i < chicount.size(); i++){
 			CHIItem chiItem = chicount.get(i);
-			if ((!filters.contains(chiItem.ID)) && (i > threshold * chicount.size())){
+			if ((!filters.contains(chiItem.ID)) && (i >= threshold * chicount.size())){
 				filters.add(chiItem.ID);
 			}
 		}
@@ -84,9 +84,9 @@ public class CHIFilter {
 	public void filter(SmartData data){
 		for (int i = 0; i < data.doclist.size(); i++){
 			Doc doc = data.doclist.get(i);
-			if (i % 100 == 0){
-				System.out.println(i + " data processed..");
-			}
+//			if (i % 100 == 0){
+//				System.out.println(i + " data processed..");
+//			}
 			int j = 0;
 			while(j < doc.tfs.size()){
 				Point tf = doc.tfs.get(j);

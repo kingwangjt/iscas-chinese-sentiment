@@ -9,7 +9,7 @@ import cn.ac.iscas.io.SmartData;
 
 public class DFFilter {
 	public SmartData data;
-	public static double threshold = 0.6;
+	public static double threshold = 0.1;
 	public ArrayList<Point> dfcount = new ArrayList<Point>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
@@ -68,9 +68,9 @@ public class DFFilter {
 	public void filter(SmartData data){
 		for (int i = 0; i < data.doclist.size(); i++){
 			Doc doc = data.doclist.get(i);
-			if (i % 100 == 0){
-				System.out.println(i + " data processed..");
-			}
+//			if (i % 100 == 0){
+//				System.out.println(i + " data processed..");
+//			}
 			int j = 0;
 			while(j < doc.tfs.size()){
 				Point tf = doc.tfs.get(j);

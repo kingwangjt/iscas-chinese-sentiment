@@ -49,22 +49,33 @@ public class NBModel {
 	}
 	
 	public void test(SmartData test){
+		System.out.println("tfcount size:" + tfcount.size());
 		int right = 0, wrong = 0;
+		int right2 = 0, wrong2 = 0;
 		int orlNonCommentCount = 0;
-		int precitNonCommentCount = 0;
+		int predictNonCommentCount = 0;
 		int rightNonCommentCount = 0;
 		for (int i = 0; i < test.doclist.size(); i++){
 			Doc doc = test.doclist.get(i);
 			int sentiment = getSentiment(doc);
 			if (doc.sentiment == 0) orlNonCommentCount++;
 			//System.out.println(sentiment);
-			if (sentiment == 0)precitNonCommentCount++;
+			if (sentiment == 0)	predictNonCommentCount++;
 			if ((sentiment == 0) && (doc.sentiment == 0)) rightNonCommentCount++;
+			
 			if (sentiment == doc.sentiment) right++;
 			else wrong++;
+			if ((doc.sentiment != 0) && (sentiment != 0)){
+				if (sentiment == doc.sentiment) right2++;
+				else wrong2++;				
+			}
 		}
+		System.out.println("rC : " + rightNonCommentCount);
+		System.out.println("aC : " + orlNonCommentCount);
+		System.out.println("gC : " + predictNonCommentCount);
 		System.out.println("Accuracy: " + (double)right/(right+wrong));
-		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/precitNonCommentCount);
+		System.out.println("Accuracy(Without Non-Comment): " + (double)right2/(right2+wrong2));
+		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/predictNonCommentCount);
 		System.out.println("Recall(Non Coment): " + (double)rightNonCommentCount/orlNonCommentCount);
 	}
 	
@@ -72,13 +83,16 @@ public class NBModel {
 		int sentiment = 0;
 		double pProbability = pPositive;
 		double nProbability = pNegtive;
+		boolean hasTerm = false;
 		for (int i = 0; i < doc.tfs.size(); i++){
 			Point tf = doc.tfs.get(i);
 			int index = getIndex(tf.x);
 			if (index < 0) continue;
+			hasTerm = true;
 			pProbability *= Math.pow(tfcount.get(index).pProbability, tf.y);
 			nProbability *= Math.pow(tfcount.get(index).nProbability, tf.y);
 		}
+		if (!hasTerm) return 0;
 		if (pProbability > nProbability) return 1;
 		if (nProbability > pProbability) return -1;
 		return sentiment;

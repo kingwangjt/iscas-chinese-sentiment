@@ -21,14 +21,14 @@ public class FivefoldCrossValidationTest {
 			System.out.println(num.get(i));
 		}*/
 		FivefoldCrossValidation ffcv = new FivefoldCrossValidation();
-		ffcv.getDataSet("D:\\svm_tf.txt");
+		ffcv.getDataSet("data\\svm_tf.txt");
 		ffcv.dataSetShuffle();
 /*		for(int i=0; i<ffcv.size; i++){
 			System.out.println(ffcv.num.get(i));
 		}*/
 //		System.out.println(ffcv.size);
-		ffcv.generateDataSets("D:\\svm_tf.txt","F:\\4\\",10);
-		
+		ffcv.generateDataSets("data\\svm_tf.txt","test\\", 3);		
+
 	}
 
 }
