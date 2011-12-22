@@ -16,6 +16,8 @@ public class TFCount {
 	
 	public void setProbability(int pcount, int ncount, int tfcount){
 		pProbability = (double)(p + 1) / (pcount + tfcount);
+		pProbability = Math.log(pProbability);
 		nProbability = (double)(n + 1) / (ncount + tfcount);
+		nProbability = Math.log(nProbability);
 	}
 }
