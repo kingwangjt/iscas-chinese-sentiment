@@ -50,16 +50,22 @@ public class NBModel {
 	
 	public void test(SmartData test){
 		int right = 0, wrong = 0;
+		int orlNonCommentCount = 0;
+		int precitNonCommentCount = 0;
+		int rightNonCommentCount = 0;
 		for (int i = 0; i < test.doclist.size(); i++){
 			Doc doc = test.doclist.get(i);
 			int sentiment = getSentiment(doc);
+			if (doc.sentiment == 0) orlNonCommentCount++;
 			//System.out.println(sentiment);
-			if (sentiment == 0) continue;
-			////////////////////////////////
+			if (sentiment == 0)precitNonCommentCount++;
+			if ((sentiment == 0) && (doc.sentiment == 0)) rightNonCommentCount++;
 			if (sentiment == doc.sentiment) right++;
 			else wrong++;
 		}
 		System.out.println("Accuracy: " + (double)right/(right+wrong));
+		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/precitNonCommentCount);
+		System.out.println("Recall(Non Coment): " + (double)rightNonCommentCount/orlNonCommentCount);
 	}
 	
 	int getSentiment(Doc doc){
