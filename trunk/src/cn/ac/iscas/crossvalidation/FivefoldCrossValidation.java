@@ -59,16 +59,16 @@ public class FivefoldCrossValidation {
 		SmartFile sf_write_test = null;
 		SmartFile sf_write_train;
 		String line;
-		String testingfilename = "5-fold Cross Validation.testing.";
-		String trainningfilename = "5-fold Cross Validation.trainning.";
+		String testingfilename = k_fold + "-fold Cross Validation.testing.";
+		String trainningfilename = k_fold + "-fold Cross Validation.trainning.";
 		int increment;
 		while(iteration <= k_fold){
 			begin = last;
 			for(int i = 0; i < size; i++){
 				mark[i] = 0;                          //mark = 0 means training data
 			}
-			if(iteration != 5)
-				increment = size/5;
+			if(iteration != k_fold)
+				increment = size/k_fold;
 			else
 				increment = size - begin;
 			while(last < begin + increment){
