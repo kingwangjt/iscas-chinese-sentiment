@@ -59,7 +59,7 @@ public class DFFilter {
 	void generateFilterIndexs(){
 		for (int i = 0; i < dfcount.size(); i++){
 			Point df = dfcount.get(i);
-			if ((!filters.contains(df.x)) && (i > dfcount.size() * threshold)){
+			if ((!filters.contains(df.x)) && (i >= dfcount.size() * threshold)){
 				filters.add(dfcount.get(i).x);
 			}
 		}
