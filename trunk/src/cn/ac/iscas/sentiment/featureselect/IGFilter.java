@@ -9,12 +9,13 @@ import cn.ac.iscas.io.SmartData;
 
 public class IGFilter {
 	public SmartData data;
-	public static double threshold = 0.7;
+	public static double threshold = 0.01;
 	public ArrayList<IGItem> igcount = new ArrayList<IGItem>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
-	public IGFilter(SmartData data){
-		System.out.print("Information Gain Filter Begin...");
+	public IGFilter(SmartData data, double threshold){
+		IGFilter.threshold = threshold;
+		System.out.print("Information Gain Filter Begin...(" + threshold + ")");
 		this.data = data;
 		int pcount = 0;
 		int ncount = 0;
@@ -44,6 +45,7 @@ public class IGFilter {
 		System.out.print("Information Gain End...");
 		System.out.println("Size: " + (igcount.size() - filters.size()));
 	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public void sortByIG()

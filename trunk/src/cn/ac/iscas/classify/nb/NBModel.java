@@ -11,6 +11,7 @@ public class NBModel {
 	int p = 0, n = 0;
 	int pcount = 0, ncount = 0;
 	int sumcount;
+	double CANTJUDGETHRESHOLD = 0.2;
 	//x positive, y negtive
 	ArrayList<TFCount> tfcount = new ArrayList<TFCount>();
 	double pPositive = 0, pNegtive = 0;
@@ -18,6 +19,11 @@ public class NBModel {
 	
 	public NBModel(SmartData trainData){
 		this.trainData = trainData;
+	}
+	
+	public NBModel(SmartData trainData, double cantJudgeThreshold){
+		this.trainData = trainData;
+		this.CANTJUDGETHRESHOLD = cantJudgeThreshold;
 	}
 	
 	public void train(){
@@ -85,7 +91,7 @@ public class NBModel {
 		double nProbability = Math.log(pNegtive);
 	//	System.out.println(pProbability + ":" + nProbability);
 		boolean hasTerm = false;
-		System.out.println(doc.ID + " tfs size: " + doc.tfs.size());
+//		System.out.println(doc.ID + " tfs size: " + doc.tfs.size());
 		for (int i = 0; i < doc.tfs.size(); i++){
 			
 			Point tf = doc.tfs.get(i);
@@ -94,14 +100,15 @@ public class NBModel {
 			hasTerm = true;
 			pProbability += tfcount.get(index).pProbability * tf.y;
 			nProbability += tfcount.get(index).nProbability * tf.y;
-//			if (Math.abs(pProbability - 0) < 0.00001){
-//				System.out.println(">>>" + tfcount.get(index).pProbability + ":" +tf.y);
-//			}
 		}
-//		if (!hasTerm){
-//			System.out.println("No available term!");
-//			return 0;
-//		}
+		if (!hasTerm){
+	//		System.out.println(doc.ID + " : No available term!");
+			return 0;
+		}
+		if (Math.abs(pProbability - nProbability) < CANTJUDGETHRESHOLD){
+	//		System.out.println(doc.ID + " : Can not judge!");
+			return 0;
+		}
 		if (pProbability > nProbability) return 1;
 		if (nProbability > pProbability) return -1;
 //		System.out.println(pProbability + ":" + nProbability);
@@ -146,7 +153,7 @@ public class NBModel {
 	public void setProbability(){
 		for (int i = 0; i < tfcount.size(); i++){
 			tfcount.get(i).setProbability(pcount, ncount, tfcount.size());
-			System.out.println(i + " " + tfcount.get(i).pProbability + ":" + tfcount.get(i).nProbability);
+	//		System.out.println(i + " " + tfcount.get(i).pProbability + ":" + tfcount.get(i).nProbability);
 		}
 	}
 	
