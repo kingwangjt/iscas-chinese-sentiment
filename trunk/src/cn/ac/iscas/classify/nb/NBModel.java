@@ -2,6 +2,7 @@ package cn.ac.iscas.classify.nb;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.ac.iscas.io.Doc;
 import cn.ac.iscas.io.SmartData;
@@ -52,6 +53,45 @@ public class NBModel {
 		pPositive = (double)p / (p + n);
 		pNegtive = (double)n / (p + n);
 		setProbability();
+	}
+	
+	public double test(List<Doc> doclist)
+	{
+		System.out.println("tfcount size:" + tfcount.size());
+		int right = 0, wrong = 0;
+		int right2 = 0, wrong2 = 0;
+		int orlNonCommentCount = 0;
+		int predictNonCommentCount = 0;
+		int rightNonCommentCount = 0;
+		for (int i = 0; i < doclist.size(); i++){
+			Doc doc = doclist.get(i);
+			int sentiment = getSentiment(doc);
+			if(sentiment == 1)
+				System.out.println(doc.ID + "\tyes");
+			else if(sentiment == 0)
+				System.out.println(doc.ID + "\tna");
+			else
+				System.out.println(doc.ID + "\tno");
+			if (doc.sentiment == 0) orlNonCommentCount++;
+			//System.out.println(sentiment);
+			if (sentiment == 0)	predictNonCommentCount++;
+			if ((sentiment == 0) && (doc.sentiment == 0)) rightNonCommentCount++;
+			
+			if (sentiment == doc.sentiment) right++;
+			else wrong++;
+			if ((doc.sentiment != 0) && (sentiment != 0)){
+				if (sentiment == doc.sentiment) right2++;
+				else wrong2++;				
+			}
+		}
+//		System.out.println("rC : " + rightNonCommentCount);
+//		System.out.println("aC : " + orlNonCommentCount);
+//		System.out.println("gC : " + predictNonCommentCount);
+//		System.out.println("Accuracy: " + (double)right/(right+wrong));
+//		System.out.println("Accuracy(Without Non-Comment): " + (double)right2/(right2+wrong2));
+//		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/predictNonCommentCount);
+//		System.out.println("Recall(Non Coment): " + (double)rightNonCommentCount/orlNonCommentCount);
+		return (double)right/(right+wrong);
 	}
 	
 	public double test(SmartData test){

@@ -9,7 +9,7 @@ import cn.ac.iscas.io.SmartData;
 
 public class IGFilter {
 	public SmartData data;
-	public static double threshold = 0.01;
+	public static double threshold = 0.6;
 	public ArrayList<IGItem> igcount = new ArrayList<IGItem>();
 	public ArrayList<Integer> filters = new ArrayList<Integer>();
 	
