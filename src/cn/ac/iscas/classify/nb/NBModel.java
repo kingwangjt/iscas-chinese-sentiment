@@ -54,7 +54,7 @@ public class NBModel {
 		setProbability();
 	}
 	
-	public void test(SmartData test){
+	public double test(SmartData test){
 		System.out.println("tfcount size:" + tfcount.size());
 		int right = 0, wrong = 0;
 		int right2 = 0, wrong2 = 0;
@@ -83,6 +83,7 @@ public class NBModel {
 		System.out.println("Accuracy(Without Non-Comment): " + (double)right2/(right2+wrong2));
 		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/predictNonCommentCount);
 		System.out.println("Recall(Non Coment): " + (double)rightNonCommentCount/orlNonCommentCount);
+		return right/(right+wrong);
 	}
 	
 	int getSentiment(Doc doc){
