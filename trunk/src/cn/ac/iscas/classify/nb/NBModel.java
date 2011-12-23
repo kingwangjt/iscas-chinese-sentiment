@@ -83,7 +83,7 @@ public class NBModel {
 		System.out.println("Accuracy(Without Non-Comment): " + (double)right2/(right2+wrong2));
 		System.out.println("Precise(Non Coment): " + (double)rightNonCommentCount/predictNonCommentCount);
 		System.out.println("Recall(Non Coment): " + (double)rightNonCommentCount/orlNonCommentCount);
-		return right/(right+wrong);
+		return (double)right/(right+wrong);
 	}
 	
 	int getSentiment(Doc doc){
