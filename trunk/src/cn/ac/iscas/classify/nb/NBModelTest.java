@@ -11,11 +11,11 @@ public class NBModelTest extends TestCase {
 	public void testNBModel() {
 		SmartData trainData = new SmartData("test\\5-fold Cross Validation.trainning.2.txt");
 //		DFFilter df = new DFFilter(trainData);
-		IGFilter ig = new IGFilter(trainData, 0.7);
+		IGFilter ig = new IGFilter(trainData, 0.8);
 //		CHIFilter chi = new CHIFilter(trainData);
 		SmartData testData = new SmartData("test\\5-fold Cross Validation.testing.2.txt", true);
 //		ig.filter(testData);
-		NBModel nbm = new NBModel(trainData, 0.5);
+		NBModel nbm = new NBModel(trainData, 0.1);
 		nbm.train();
 //		nbm.printModel();
 		nbm.test(testData);
