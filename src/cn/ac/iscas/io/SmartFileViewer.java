@@ -21,22 +21,24 @@ public class SmartFileViewer {
 	// public static final String path =
 	// "C:\\Users\\peterstone\\Desktop\\trainset";
 	public static List<String> fileList = new ArrayList<String>();
-	public static String[] fileContent;
-	public static String[] fileLabel;
+	public static List<String> fileContent;
+	public static List<String> fileLabel;
+	public static List<Integer> fileId;
 	public static int MaxFileNum = 0;
 	static int count = 0;
 
 	
 	public SmartFileViewer(String path){
 		this.path = path;
+		fileContent = new ArrayList<String>();
+		fileLabel = new ArrayList<String>();
+		fileId = new ArrayList<Integer>();
 	}
 
 	public static void viewFiles() {
 		File dir = new File(path);
 		File[] t = dir.listFiles();
 		MaxFileNum = t.length;
-		fileContent = new String[MaxFileNum + 1];
-		fileLabel = new String[MaxFileNum + 1];
 		List arrayList = SmartFileViewer.getListFiles(path, "txt", true);
 
 		if (arrayList.isEmpty()) {
@@ -84,22 +86,31 @@ public class SmartFileViewer {
 				}
 
 				if (tempsuffix.equals(suffix)) {
-					fileList.add(filePath);
+					int k = 0;
+					
 					String content = readFile(filePath);
 					String filename = f.getName();
 					count++;
+					if(count % 1000 ==0)
 					System.out.println("add " + filename + " (" + count +")..");
 					String[] temp = filename.split("_");
 					int fileid = Integer.valueOf(temp[0]);
-					fileContent[fileid] = content;
+					for(k = 0; k < fileId.size(); k++)
+					{
+						if(fileid < fileId.get(k))
+							break;
+					}
+					fileId.add(k, fileid);
+					fileContent.add(k, content);
+					fileList.add(k, f.getAbsolutePath());
 					if (temp[1].compareTo("很好.txt") == 0
 							|| temp[1].compareTo("好.txt") == 0) {
-						fileLabel[fileid] = fileid + "\t1";
+						fileLabel.add(k,fileid + "\t1");
 					} else if (temp[1].compareTo("差.txt") == 0
 							|| temp[1].compareTo("很差.txt") == 0) {
-						fileLabel[fileid] = fileid + "\t-1";
+						fileLabel.add(k,fileid + "\t-1");
 					} else {
-						fileLabel[fileid] = fileid + "\t-1";
+						fileLabel.add(k,fileid + "\t0");
 					}
 				}
 			} else {
