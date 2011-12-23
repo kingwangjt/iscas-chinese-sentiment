@@ -23,8 +23,9 @@ import cn.ac.iscas.segment.ChineseSegment;
 public class FeatureGenerator {
 	public List<String> termList;
 	public Map<String, Integer> dictionaryIndex;
-	public String[] fileContent;
-	public String[] fileLabel;
+	public List<String> fileContent;
+	public List<String> fileLabel;
+	public List<Integer> fileId;
 	public static int fileNum;
 	public static final int DFThreshold = 10;
 
@@ -64,13 +65,14 @@ public class FeatureGenerator {
 		fileContent = sfv.fileContent;
 		fileLabel = sfv.fileLabel;
 		fileNum = sfv.MaxFileNum;
+		fileId = sfv.fileId;
 	}
 	
 	public void getFeatures()
 	{
-		for(int i = 1; i <= fileNum; i++)
+		for(int i = 0; i < fileNum; i++)
 		{
-			String content = fileContent[i];
+			String content = fileContent.get(i);
 		//	System.out.println(content + "!");
 			List<String> tokenList = getTokenList(content);
 			for(int j = 0; j < tokenList.size(); j++)
@@ -81,12 +83,12 @@ public class FeatureGenerator {
 				if(tempMap.containsKey(s))
 				{
 					List<Integer> idList = tempMap.get(tokenList.get(j));
-					idList.add(i);
+					idList.add(fileId.get(i));
 				}
 				else
 				{
 					List<Integer> list = new ArrayList<Integer>();
-					list.add(i);
+					list.add(fileId.get(i));
 					tempMap.put(tokenList.get(j), list);
 				}
 			}
@@ -168,12 +170,12 @@ public class FeatureGenerator {
 		try{
 			BufferedWriter bfw = new BufferedWriter(new FileWriter(".//svm_tf.txt"));
 			
-			for(int i = 1; i <= fileNum; i++)
+			for(int i = 0; i < fileNum; i++)
 			{
 				String line = "";
-				List<Point> tfs = tf.termfrequenceMatrix.get(i);
-				line += this.fileLabel[i];
-				System.out.println("文档" + i + "包括下列词：");
+				List<Point> tfs = tf.termfrequenceMatrix.get(fileId.get(i));
+				line += this.fileLabel.get(i);
+				System.out.println("文档" + fileId.get(i) + "包括下列词：");
 				if(tfs == null)
 				{
 					System.out.print("不含任何词");
