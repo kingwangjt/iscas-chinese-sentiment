@@ -76,7 +76,7 @@ public class IGFilter {
 	void generateFilterIndexs(){
 		for (int i = 0; i < igcount.size(); i++){
 			IGItem igItem = igcount.get(i);
-			if ((!filters.contains(igItem.ID)) && (i > threshold * igcount.size())){
+			if ((!filters.contains(igItem.ID)) && (i >= threshold * igcount.size())){
 				filters.add(igItem.ID);
 			}
 		}
