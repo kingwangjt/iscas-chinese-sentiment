@@ -1,9 +1,12 @@
-package cn.ac.iscas.features;
+package cn.ac.iscas.test;
 
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import cn.ac.iscas.features.FeatureGenerator;
+import cn.ac.iscas.features.TermFrequenceFeature;
 
 import junit.framework.TestCase;
 

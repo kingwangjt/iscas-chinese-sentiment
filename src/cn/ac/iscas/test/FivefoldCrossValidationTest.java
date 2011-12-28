@@ -1,9 +1,11 @@
-package cn.ac.iscas.crossvalidation;
+package cn.ac.iscas.test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 //import cn.ac.iscas.crossvalidation.FivefoldCrossValidation;
+
+import cn.ac.iscas.crossvalidation.FivefoldCrossValidation;
 
 public class FivefoldCrossValidationTest {
 	public static void main(String[] args){

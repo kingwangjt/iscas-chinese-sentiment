@@ -1,5 +1,6 @@
-package cn.ac.iscas.io;
+package cn.ac.iscas.test;
 
+import cn.ac.iscas.io.SmartData;
 import junit.framework.TestCase;
 
 public class SmartDataTest extends TestCase {
