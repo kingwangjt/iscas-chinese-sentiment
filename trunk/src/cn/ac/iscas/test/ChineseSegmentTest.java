@@ -1,7 +1,9 @@
-package cn.ac.iscas.segment;
+package cn.ac.iscas.test;
 
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.TokenStream;
+
+import cn.ac.iscas.segment.ChineseSegment;
 
 import junit.framework.TestCase;
 

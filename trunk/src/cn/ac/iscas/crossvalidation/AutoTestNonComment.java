@@ -31,17 +31,18 @@ public class AutoTestNonComment {
 		for (int i = 1; i <= 10; i++){
 			for (int j = 1; j <= 10; j++){
 				double avgAcuracy = test((double)i / 10, (double)j / 10);
-				System.out.printf("Accracy(%lf, %lf)==%lf<<<\n" , (double)i / 10, (double)j / 10, avgAcuracy);
+				System.out.printf("Accuracy(%f, %f)==%f<<<\n" , (double)i / 10, (double)j / 10, avgAcuracy);
 				if (avgAcuracy > maxAcuracy){
 					maxAcuracy = avgAcuracy;
 					maxi = (double)i / 10;
 					maxj = (double)j / 10;
 				}
+				out.flush();
 			}
 		}
 		System.out.println("<<<<<<<<<<<<");
-		System.out.printf("Max Accracy(%lf, %lf)==%lf<<<\n" , maxi, maxj, maxAcuracy);
-		out.close();
+		System.out.printf("Max Accuracy(%f, %f)==%f<<<\n" , maxi, maxj, maxAcuracy);
+//		out.close();
 	}
 	
 	public static double test(double modelThreshold, double filterThreshold){
@@ -52,7 +53,7 @@ public class AutoTestNonComment {
 			File dir = new File(testDir);
 			File[] testFiles = dir.listFiles();
 			double avgAccuray = 0;
-			for (int i = 0; i < testFiles.length; i++){
+			for (int i = 0; i < 1; i++){
 				String[] temp = ((String)testFiles[i].getName()).split("\\.");
 				if (temp[1].equals("testing")){
 					int index = Integer.parseInt(temp[2]);
@@ -70,8 +71,10 @@ public class AutoTestNonComment {
 //					nbm.printModel();
 					avgAccuray += nbm.test(testData);
 				}
+				System.out.flush();
 			}
 			System.out.println("=======================================");
+			System.out.flush();
 			return avgAccuray / 5;
 		} catch (Exception e){
 			e.printStackTrace();

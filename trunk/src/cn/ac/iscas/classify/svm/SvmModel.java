@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 import cn.ac.iscas.io.Doc;
 import cn.ac.iscas.io.XmlReader;
 
-public class SvmModelTest extends TestCase{
+public class SvmModel extends TestCase{
 	public void testSvmModel()
 	{
 		String path = ".\\svm_test.txt";
