@@ -1,0 +1,1 @@
+A Chinese sentiment project in JAVA presented by ISCAS
